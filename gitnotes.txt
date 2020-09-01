@@ -20,3 +20,6 @@ https://www.educative.io/edpresso/the-fatal-refusing-to-merge-unrelated-historie
 https://docs.github.com/en/github/using-git/dealing-with-non-fast-forward-errors
 
 https://docs.github.com/en/github/using-git/pushing-commits-to-a-remote-repository
+
+
+git pull origin master --allow-unrelated-histories

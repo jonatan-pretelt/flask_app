@@ -11,3 +11,12 @@ $ git fetch origin
 # Fetches updates made to an online repository
 $ git merge origin YOUR_BRANCH_NAME
 # Merges updates made online with your local work
+
+
+
+
+https://www.educative.io/edpresso/the-fatal-refusing-to-merge-unrelated-histories-git-error
+
+https://docs.github.com/en/github/using-git/dealing-with-non-fast-forward-errors
+
+https://docs.github.com/en/github/using-git/pushing-commits-to-a-remote-repository

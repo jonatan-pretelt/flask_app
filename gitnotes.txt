@@ -13,6 +13,12 @@ $ git merge origin YOUR_BRANCH_NAME
 # Merges updates made online with your local work
 
 
+Or, you can simply use git pull to perform both commands at once:
+
+$ git pull origin YOUR_BRANCH_NAME
+# Grabs online updates and merges them with your local work
+
+
 
 
 https://www.educative.io/edpresso/the-fatal-refusing-to-merge-unrelated-histories-git-error
@@ -23,3 +29,5 @@ https://docs.github.com/en/github/using-git/pushing-commits-to-a-remote-reposito
 
 
 git pull origin master --allow-unrelated-histories
+
+git push https://github.com/jonatan-pretelt/flask_app.git master:master

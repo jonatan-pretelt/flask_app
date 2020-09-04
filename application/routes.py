@@ -1,5 +1,12 @@
-from application import app #imports from the __init__ file
-from flask import render_template, request
+from application import app, db#imports from the __init__ file
+from flask import render_template, request, json, Response
+from application.models import User, Course, Enrollment
+
+courseData = [{"courseID":"1111","title":"PHP 111","description":"Intro to PHP","credits":"3","term":"Fall, Spring"}, 
+{"courseID":"2222","title":"Java 1","description":"Intro to Java Programming","credits":"4","term":"Spring"}, 
+{"courseID":"3333","title":"Adv PHP 201","description":"Advanced PHP Programming","credits":"3","term":"Fall"}, 
+{"courseID":"4444","title":"Angular 1","description":"Intro to Angular","credits":"3","term":"Fall, Spring"}, 
+{"courseID":"5555","title":"Java 2","description":"Advanced Java Programming","credits":"4","term":"Fall"}]
 
 @app.route("/")
 @app.route("/index")
@@ -14,21 +21,36 @@ def login():
 @app.route("/courses")
 @app.route("/courses/<term>")
 def courses(term="Spring 2019"):
-	courseData = [{"courseID":"1111","title":"PHP 111","description":"Intro to PHP","credits":"3","term":"Fall, Spring"}, 
-	{"courseID":"2222","title":"Java 1","description":"Intro to Java Programming","credits":"4","term":"Spring"}, 
-	{"courseID":"3333","title":"Adv PHP 201","description":"Advanced PHP Programming","credits":"3","term":"Fall"}, 
-	{"courseID":"4444","title":"Angular 1","description":"Intro to Angular","credits":"3","term":"Fall, Spring"}, 
-	{"courseID":"5555","title":"Java 2","description":"Advanced Java Programming","credits":"4","term":"Fall"}]
-	print(courseData)
 	return render_template("courses.html", courseData=courseData, courses=True, term=term)  #render_template function
 
-@app.route("/register")
+@app.route("/register", methods=["GET", "POST"])
 def register():
 	return render_template("register.html", register=True)  #render_template function
 
 @app.route("/enrollment")     #getting data from the form in enrollment using the get method
 def enrollment():
-	id = request.args.get('courseID')
-	title = request.args.get('title')
-	term = request.args.get('term')
+	id = request.form.get('courseID')
+	title = request.form.get('title')
+	term = request.form.get('term')
 	return render_template("enrollment.html", enrollment=True, data={"id":id, "title":title,"term":term}) 
+
+@app.route("/api/")
+@app.route("/api/<idx>")
+def api(idx=None):
+	if(idx == None):
+		jdata = courseData
+	else:
+		jdata = courseData[int(idx)]
+
+	return Response(json.dumps(jdata), mimetype="application/json")
+
+
+
+@app.route("/user")
+def user():
+	# User(user_id=1, first_name="Christian", last_name="Hur", email="christian@company.com",
+	# 	password="abc1234").save()
+	# User(user_id=2, first_name="Mary", last_name="Jane", email="mary.jane@company.com",
+	# 	password="password123").save()
+	users = User.objects.all()
+	return render_template("user.html", users=users)
